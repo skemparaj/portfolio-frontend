@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kemparaj S Portfolio - System Architecture & Visitor Analytics Dashboard">
+  <title>KS Portfolio | Admin Control Panel</title>
+  <link rel="stylesheet" href="admin.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Background Overlays -->
+  <div class="dashboard-glow"></div>
+  <div class="dashboard-grid-overlay"></div>
+
+  <!-- ── 1. LOGIN INTERFACE ─── -->
+  <div id="login-container" class="login-wrapper">
+    <div class="glass-card login-card">
+      <div class="login-header">
+        <div class="login-logo">&lt;KS /&gt;</div>
+        <h2>Portfolio CMS Login</h2>
+        <p>Enter your credential keys to access dashboard analytics.</p>
+      </div>
+      <form id="login-form">
+        <div class="form-group">
+          <label class="form-label" for="login-username">Username</label>
+          <input type="text" id="login-username" class="form-input" placeholder="admin" required autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <input type="password" id="login-password" class="form-input" placeholder="••••••••" required autocomplete="current-password" />
+        </div>
+        <button type="submit" class="btn-primary login-btn">
+          <i class="fa-solid fa-key"></i> Authenticate
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── 2. ADMIN DASHBOARD PANEL ─── -->
+  <div id="admin-container" class="admin-wrapper" style="display: none;">
+    <!-- Navigation Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <span class="logo">&lt;KS /&gt;</span>
+        <span class="status-badge"><span class="dot live"></span> Admin</span>
+      </div>
+      
+      <ul class="sidebar-menu">
+        <li class="menu-item active" data-tab="overview">
+          <i class="fa-solid fa-chart-line"></i> Overview
+        </li>
+        <li class="menu-item" data-tab="messages">
+          <i class="fa-solid fa-envelope"></i> Messages <span class="badge" id="messages-count-badge" style="display:none;">0</span>
+        </li>
+        <li class="menu-item" data-tab="projects">
+          <i class="fa-solid fa-folder-open"></i> Projects
+        </li>
+        <li class="menu-item" data-tab="visitors">
+          <i class="fa-solid fa-users"></i> Visitor Logs
+        </li>
+        <li class="menu-item" data-tab="heatmap">
+          <i class="fa-solid fa-fire"></i> Heatmap
+        </li>
+        <li class="menu-item" data-tab="settings">
+          <i class="fa-solid fa-shield-halved"></i> Security
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <button id="logout-btn" class="btn-logout">
+          <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <main class="main-content">
+      <header class="content-header">
+        <div class="header-title">
+          <h1 id="tab-title">Overview Analytics</h1>
+          <p id="tab-subtitle">Real-time visitor patterns and site usage aggregates.</p>
+        </div>
+        <div class="header-actions">
+          <div class="live-counter">
+            <span class="dot pulsing"></span> Live Users: <strong id="live-visitors">0</strong>
+          </div>
+        </div>
+      </header>
+
+      <!-- View Sections -->
+      <div class="content-body">
+        
+        <!-- A. OVERVIEW VIEW -->
+        <section id="tab-view-overview" class="tab-view active">
+          <!-- Overview Cards -->
+          <div class="stats-cards-grid">
+            <div class="glass-card stat-metric-card" style="--card-color: var(--neon-cyan)">
+              <div class="card-icon"><i class="fa-solid fa-eye"></i></div>
+              <div>
+                <div class="metric-label">Total Visits</div>
+                <div class="metric-value" id="stat-total-visits">0</div>
+              </div>
+            </div>
+            <div class="glass-card stat-metric-card" style="--card-color: var(--neon-purple)">
+              <div class="card-icon"><i class="fa-solid fa-user-check"></i></div>
+              <div>
+                <div class="metric-label">Unique Visitors</div>
+                <div class="metric-value" id="stat-unique-visitors">0</div>
+              </div>
+            </div>
+            <div class="glass-card stat-metric-card" style="--card-color: var(--neon-green)">
+              <div class="card-icon"><i class="fa-solid fa-download"></i></div>
+              <div>
+                <div class="metric-label">Resume Downloads</div>
+                <div class="metric-value" id="stat-resume-downloads">0</div>
+              </div>
+            </div>
+            <div class="glass-card stat-metric-card" style="--card-color: var(--neon-pink)">
+              <div class="card-icon"><i class="fa-solid fa-clock"></i></div>
+              <div>
+                <div class="metric-label">Avg. Duration</div>
+                <div class="metric-value" id="stat-avg-duration">0s</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Layout -->
+          <div class="charts-layout-grid">
+            <div class="glass-card chart-card-container span-large">
+              <h3>Traffic Patterns (Last 14 Days)</h3>
+              <div class="canvas-wrap">
+                <canvas id="trafficChart"></canvas>
+              </div>
+            </div>
+            <div class="glass-card chart-card-container">
+              <h3>Device Split</h3>
+              <div class="canvas-wrap donut">
+                <canvas id="deviceChart"></canvas>
+              </div>
+            </div>
+            <div class="glass-card chart-card-container">
+              <h3>Top Referrers & Geolocations</h3>
+              <div class="geo-split-list" id="geo-split-list">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+            <div class="glass-card chart-card-container span-medium">
+              <h3>Browser Distribution</h3>
+              <div class="canvas-wrap bar">
+                <canvas id="browserChart"></canvas>
+              </div>
+            </div>
+            <div class="glass-card chart-card-container span-medium">
+              <h3>Operating System split</h3>
+              <div class="canvas-wrap bar">
+                <canvas id="osChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- B. MESSAGES VIEW -->
+        <section id="tab-view-messages" class="tab-view">
+          <div class="glass-card section-card">
+            <div class="section-card-header">
+              <h3>Contact Messages Received</h3>
+              <span class="muted-label" id="messages-summary-text">0 messages total</span>
+            </div>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Sender</th>
+                    <th>Email</th>
+                    <th>Subject</th>
+                    <th>Message</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="messages-table-body">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- C. PROJECTS VIEW -->
+        <section id="tab-view-projects" class="tab-view">
+          <!-- Projects Manager Container -->
+          <div class="projects-manager-layout">
+            <!-- Left Side: Add / Edit Form -->
+            <div class="glass-card project-form-card">
+              <h3 id="project-form-title">Add New Project</h3>
+              <form id="project-crud-form">
+                <input type="hidden" id="project-id" />
+                <div class="form-group">
+                  <label class="form-label" for="project-title">Title</label>
+                  <input type="text" id="project-title" class="form-input" placeholder="My Premium Project" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="project-description">Description</label>
+                  <textarea id="project-description" class="form-textarea" placeholder="Describe the application features..." required></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="project-technologies">Technologies (comma separated)</label>
+                  <input type="text" id="project-technologies" class="form-input" placeholder="Java, Spring Boot, MySQL" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="project-github">GitHub Link</label>
+                  <input type="url" id="project-github" class="form-input" placeholder="https://github.com/..." />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="project-live">Live Link</label>
+                  <input type="text" id="project-live" class="form-input" placeholder="https://..." />
+                </div>
+                <div class="form-actions-row">
+                  <button type="submit" class="btn-primary" id="btn-save-project">Add Project</button>
+                  <button type="button" class="btn-secondary" id="btn-cancel-edit" style="display:none;">Cancel</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Right Side: Projects List -->
+            <div class="glass-card projects-list-card">
+              <h3>Currently Hosted Projects</h3>
+              <div class="projects-list-table" id="projects-list-table-body">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- D. VISITOR LOGS VIEW -->
+        <section id="tab-view-visitors" class="tab-view">
+          <div class="glass-card section-card">
+            <div class="section-card-header">
+              <h3>Raw Session Details</h3>
+              <div class="table-actions-row">
+                <button id="btn-export-csv" class="btn-secondary sm"><i class="fa-solid fa-file-excel"></i> Export CSV</button>
+                <button id="btn-export-pdf" class="btn-secondary sm"><i class="fa-solid fa-file-pdf"></i> Export PDF</button>
+              </div>
+            </div>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Visit Time</th>
+                    <th>IP Address</th>
+                    <th>Geolocation</th>
+                    <th>Device</th>
+                    <th>Browser</th>
+                    <th>OS</th>
+                    <th>Duration</th>
+                  </tr>
+                </thead>
+                <tbody id="visitors-table-body">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+            
+            <!-- Pagination Controls -->
+            <div class="pagination-footer">
+              <button id="prev-page-btn" class="btn-secondary sm">Prev</button>
+              <span id="page-num-indicator">Page 1 of 1</span>
+              <button id="next-page-btn" class="btn-secondary sm">Next</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- E. HEATMAP VIEW -->
+        <section id="tab-view-heatmap" class="tab-view">
+          <div class="glass-card section-card">
+            <div class="section-card-header">
+              <h3>Visitor Click Grid Density (Heatmap)</h3>
+              <button id="btn-clear-heatmap" class="btn-secondary sm">Reset Plot</button>
+            </div>
+            
+            <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:1.5rem;">
+              The grid below charts coordinate coordinates where visitors clicked across your portfolio page.
+            </p>
+
+            <div class="heatmap-canvas-container">
+              <!-- Visualized page wireframe overlay -->
+              <div class="heatmap-wireframe">
+                <div class="wf-section">HERO</div>
+                <div class="wf-section">ABOUT</div>
+                <div class="wf-section">SKILLS</div>
+                <div class="wf-section">PROJECTS</div>
+                <div class="wf-section">CONTACT</div>
+              </div>
+              <canvas id="heatmapCanvas"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <!-- F. SECURITY / SETTINGS VIEW -->
+        <section id="tab-view-settings" class="tab-view">
+          <div class="glass-card section-card" style="max-width:500px;margin: 0 auto;">
+            <h3>Update Dashboard Password</h3>
+            <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:1.5rem;">Update the database admin credential key.</p>
+            
+            <form id="change-password-form">
+              <div class="form-group">
+                <label class="form-label" for="current-password">Current Password</label>
+                <input type="password" id="current-password" class="form-input" required autocomplete="current-password" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="new-password">New Password</label>
+                <input type="password" id="new-password" class="form-input" minlength="6" required autocomplete="new-password" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" class="form-input" minlength="6" required autocomplete="new-password" />
+              </div>
+              <button type="submit" class="btn-primary">Update Password</button>
+            </form>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Real-Time Desktop Alert Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- CDN Script libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="http://localhost:5000/socket.io/socket.io.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

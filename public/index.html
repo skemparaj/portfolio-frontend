@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kemparaj S — Computer Science Engineering Student, Full Stack Developer & Data Scientist. Explore my projects, skills, and journey in tech." />
+  <meta name="keywords" content="Kemparaj S, Full Stack Developer, Data Scientist, Java Developer, AI, Portfolio, CSE Student" />
+  <meta name="author" content="Kemparaj S" />
+  <meta property="og:title" content="Kemparaj S | Full Stack Developer " />
+  <meta property="og:description" content="World-class portfolio of Kemparaj S — CSE Student, Full Stack Developer & AI Innovator." />
+  <meta property="og:type" content="website" />
+  <title>Kemparaj S | Full Stack Developer </title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23020204'/><text x='50%' y='65%' font-size='50' font-family='Space Grotesk, sans-serif' font-weight='bold' fill='%2300f5ff' text-anchor='middle'>KS</text></svg>">
+</head>
+<body>
+
+<!-- ── LOADING SCREEN ─── -->
+<div id="loading-screen">
+  <div class="loader-logo">&lt;KS /&gt;</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  <div class="loader-text">INITIALIZING PORTFOLIO...</div>
+</div>
+
+<!-- ── CUSTOM CURSOR ─── -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ── MOUSE GLOW ─── -->
+<div class="mouse-glow" id="mouseGlow"></div>
+
+<!-- ── PARTICLES ─── -->
+<canvas id="particles-canvas"></canvas>
+
+<!-- ── SCROLL PROGRESS ─── -->
+<div id="scroll-progress"></div>
+
+<!-- ── NAVBAR ─── -->
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <a href="#hero" class="nav-logo" aria-label="Home">KS</a>
+  <ul class="nav-links" role="list">
+    <li><a href="#about"        class="nav-link" data-section="about">About</a></li>
+    <li><a href="#skills"       class="nav-link" data-section="skills">Skills</a></li>
+    <li><a href="#projects"     class="nav-link" data-section="projects">Projects</a></li>
+    <li><a href="#experience"   class="nav-link" data-section="experience">Experience</a></li>
+    <li><a href="#education"    class="nav-link" data-section="education">Education</a></li>
+    <li><a href="#certificates" class="nav-link" data-section="certificates">Certificates</a></li>
+    <li><a href="#contact"      class="nav-link" data-section="contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire Me</a>
+  <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="nav-mobile" id="navMobile" role="dialog" aria-label="Mobile menu">
+  <a href="#about"        class="nav-link" onclick="closeMobileNav()">About</a>
+  <a href="#skills"       class="nav-link" onclick="closeMobileNav()">Skills</a>
+  <a href="#projects"     class="nav-link" onclick="closeMobileNav()">Projects</a>
+  <a href="#experience"   class="nav-link" onclick="closeMobileNav()">Experience</a>
+  <a href="#education"    class="nav-link" onclick="closeMobileNav()">Education</a>
+  <a href="#certificates" class="nav-link" onclick="closeMobileNav()">Certificates</a>
+  <a href="#contact"      class="nav-link" onclick="closeMobileNav()">Contact</a>
+  <a href="#contact" class="nav-cta" onclick="closeMobileNav()">Hire Me</a>
+</div>
+
+<!-- ════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+<section id="hero" aria-label="Hero">
+  <div class="hero-bg-gradient"></div>
+  <div class="hero-grid-overlay"></div>
+
+  <div class="hero-container">
+    <!-- Left: Content -->
+    <div class="hero-content">
+      <div class="hero-badge reveal">
+        <span class="dot"></span>
+        Available for Opportunities
+      </div>
+
+      <h1 class="hero-name reveal" style="transition-delay:0.1s">Kemparaj S</h1>
+
+      <div class="hero-typing-wrap reveal" style="transition-delay:0.2s">
+        <span class="hero-typing-label">I'm a</span>
+        <span id="typing-text"></span><span class="cursor-blink"></span>
+      </div>
+
+      <p class="hero-desc reveal" style="transition-delay:0.3s">
+        <strong>Building Scalable Digital Experiences with Modern Technologies</strong>.
+        A Computer Science Engineering student passionate about crafting elegant full-stack applications and solving real-world challenges.
+      </p>
+
+      <div class="hero-btns reveal" style="transition-delay:0.4s">
+        <a href="#projects" class="btn btn-primary" id="btn-view-projects">
+          <i class="fa-solid fa-rocket"></i> View Projects
+        </a>
+        <a href="assets/Kemparaj_s_Resume.pdf" download class="btn btn-secondary" id="btn-download-resume">
+          <i class="fa-solid fa-download"></i> Download Resume
+        </a>
+        <a href="#contact" class="btn btn-ghost" id="btn-contact">
+          <i class="fa-solid fa-paper-plane"></i> Contact Me
+        </a>
+      </div>
+
+      <div class="hero-stats reveal" style="transition-delay:0.5s">
+        <div class="hero-stat-item">
+          <div class="hero-stat-number">8+</div>
+          <div class="hero-stat-label">Projects</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-number">8+</div>
+          <div class="hero-stat-label">Technologies</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-number">2+</div>
+          <div class="hero-stat-label">Internships</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Profile Image -->
+    <div class="hero-image-wrap reveal-right" style="transition-delay:0.3s">
+      <div class="profile-ring-outer">
+        <div class="profile-glow"></div>
+        <div class="profile-img-container">
+          <img src="assets/images/avatar.jpg" alt="Kemparaj S — Full Stack Developer & Data Scientist" loading="eager" />
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div style="position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0.5">
+    <span style="font-size:0.7rem;letter-spacing:0.15em;color:var(--text-muted);text-transform:uppercase">Scroll</span>
+    <div style="width:1px;height:40px;background:linear-gradient(to bottom,var(--neon-cyan),transparent);animation:pulse-glow 2s ease infinite"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     ABOUT
+════════════════════════════════════════════ -->
+<section id="about" aria-labelledby="about-title">
+  <div class="section-container">
+    <div class="section-header reveal">
+      <span class="section-label">// 01 — About Me</span>
+      <h2 class="section-title" id="about-title">Who is <span class="highlight">Kemparaj S?</span></h2>
+      <p class="section-subtitle">A passionate tech enthusiast turning ideas into impactful digital experiences.</p>
+    </div>
+
+    <div class="about-grid">
+      <!-- Photo card -->
+      <div class="reveal-left">
+        <div class="glass-card about-info-card">
+          <div class="about-tag"><i class="fa-solid fa-graduation-cap"></i> CSE Student</div>
+          <div class="about-photo">
+            <img src="assets/images/avatar.jpg" alt="Kemparaj S" />
+          </div>
+          <div class="about-details">
+            <div class="about-detail-row">
+              <i class="fa-solid fa-user icon"></i>
+              <span class="label">Name</span>
+              <span class="value">Kemparaj S</span>
+            </div>
+            <div class="about-detail-row">
+              <i class="fa-solid fa-graduation-cap icon"></i>
+              <span class="label">Degree</span>
+              <span class="value">B.E. CSE</span>
+            </div>
+            <div class="about-detail-row">
+              <i class="fa-solid fa-map-marker-alt icon"></i>
+              <span class="label">Location</span>
+              <span class="value">Chimatahalli , Thalavadi(Tk) , Erode(Dt) , Tamil Nadu</span>
+            </div>
+            <div class="about-detail-row">
+              <i class="fa-solid fa-circle icon" style="color:var(--neon-green);font-size:0.6rem"></i>
+              <span class="label">Status</span>
+              <span class="value" style="color:var(--neon-green)">Open to Work</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="about-content reveal-right">
+        <h3>Building the Future,<br/>One Line at a Time</h3>
+        <p>
+          I'm a <strong style="color:var(--text-primary)">Computer Science Engineering</strong> student
+          with a deep passion for Full Stack Development, Artificial Intelligence and Web applications.
+          My journey in tech is driven by curiosity and the desire to build applications that solve
+          real-world problems.
+        </p>
+        <p>
+          From crafting pixel-perfect user interfaces to engineering robust back-end systems and
+          training machine learning models — I embrace every layer of the stack. I believe great
+          software is born at the intersection of <strong style="color:var(--neon-cyan)">elegant design</strong> and
+          <strong style="color:var(--neon-purple)">powerful engineering</strong>.
+        </p>
+        <p>
+          When I'm not coding, I'm exploring the latest in AI research, contributing to open-source
+          projects, and levelling up my problem-solving skills through competitive programming and hackathons.
+        </p>
+
+        <div class="about-highlights">
+          <div class="highlight-item"><span class="hi-icon">🚀</span> Full Stack Development</div>
+          <div class="highlight-item"><span class="hi-icon">🤖</span> AI </div>
+          <div class="highlight-item"><span class="hi-icon">📊</span> Web Application</div>
+          <div class="highlight-item"><span class="hi-icon">☕</span> Java Development</div>
+          <div class="highlight-item"><span class="hi-icon">🔐</span> Cybersecurity</div>
+          <div class="highlight-item"><span class="hi-icon">💡</span> Problem Solving</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SKILLS
+════════════════════════════════════════════ -->
+<section id="skills" aria-labelledby="skills-title">
+  <div class="section-container">
+    <div class="section-header reveal" style="text-align:center">
+      <span class="section-label">// 02 — Skills</span>
+      <h2 class="section-title" id="skills-title">My <span class="highlight">Tech Stack</span></h2>
+      <p class="section-subtitle" style="margin:0 auto">Technologies I work with to build full-stack applications and AI-driven solutions.</p>
+    </div>
+
+    <div class="skills-grid">
+
+      <div class="glass-card skill-card reveal" style="--sk-color:#3572A5;transition-delay:0.05s" data-percent="88">
+        <div class="skill-icon-wrap">🐍</div>
+        <div>
+          <div class="skill-name">Python</div>
+          <div class="skill-level">AI · Automation</div>
+        </div>
+        <div class="skill-bar-wrap"><div class="skill-bar"></div></div>
+        <div class="skill-percent">78%</div>
+      </div>
+
+      <div class="glass-card skill-card reveal" style="--sk-color:#f89820;transition-delay:0.1s" data-percent="85">
+        <div class="skill-icon-wrap">☕</div>
+        <div>
+          <div class="skill-name">Java</div>
+          <div class="skill-level">OOP · Backend · Spring</div>
+        </div>
+        <div class="skill-bar-wrap"><div class="skill-bar"></div></div>
+        <div class="skill-percent">80%</div>
+      </div>
+
+      <div class="glass-card skill-card reveal" style="--sk-color:#e34c26;transition-delay:0.15s" data-percent="92">
+        <div class="skill-icon-wrap">🌐</div>
+        <div>
+          <div class="skill-name">HTML5</div>
+          <div class="skill-level">Semantic · Accessible · SEO</div>
+        </div>
+        <div class="skill-bar-wrap"><div class="skill-bar"></div></div>
+        <div class="skill-percent">90%</div>
+      </div>
+
+      <div class="glass-card skill-card reveal" style="--sk-color:#264de4;transition-delay:0.2s" data-percent="88">
+        <div class="skill-icon-wrap">🎨</div>
+        <div>
+          <div class="skill-name">CSS3</div>
+          <div class="skill-level">Animations · Flexbox · Grid</div>
+        </div>
+        <div class="skill-bar-wrap"><div class="skill-bar"></div></div>
+        <div class="skill-percent">80%</div>
+      </div>
+
+      <div class="glass-card skill-card reveal" style="--sk-color:#f7df1e;transition-delay:0.25s" data-percent="82">
+        <div class="skill-icon-wrap">⚡</div>
+        <div>
+          <div class="skill-name">JavaScript</div>
+          <div class="skill-level">ES6+ · DOM · APIs</div>
+        </div>
+        <div class="skill-bar-wrap"><div class="skill-bar"></div></div>
+        <div class="skill-percent">82%</div>
+      </div>
+
+      <div class="glass-card skill-card reveal" style="--sk-color:#00758f;transition-delay:0.3s" data-percent="80">
+        <div class="skill-icon-wrap">🗄️</div>
+        <div>
+          <div class="skill-name">MySQL</div>
+          <div class="skill-level">Queries · Design · ORM</div>
+        </div>
+        <div class="skill-bar-wrap"><div class="skill-bar"></div></div>
+        <div class="skill-percent">80%</div>
+      </div>
+
+      <div class="glass-card skill-card reveal" style="--sk-color:#f05032;transition-delay:0.35s" data-percent="83">
+        <div class="skill-icon-wrap">🔧</div>
+        <div>
+          <div class="skill-name">Git &amp; GitHub</div>
+          <div class="skill-level">Version Control · Collaboration</div>
+        </div>
+        <div class="skill-bar-wrap"><div class="skill-bar"></div></div>
+        <div class="skill-percent">83%</div>
+      </div>
+
+      <div class="glass-card skill-card reveal" style="--sk-color:#6db33f;transition-delay:0.4s" data-percent="75">
+        <div class="skill-icon-wrap">🌿</div>
+        <div>
+          <div class="skill-name">Spring Boot</div>
+          <div class="skill-level">REST APIs · MVC · JPA</div>
+        </div>
+        <div class="skill-bar-wrap"><div class="skill-bar"></div></div>
+        <div class="skill-percent">75%</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     PROJECTS
+════════════════════════════════════════════ -->
+<section id="projects" aria-labelledby="projects-title">
+  <div class="section-container">
+    <div class="section-header reveal" style="text-align:center">
+      <span class="section-label">// 03 — Projects</span>
+      <h2 class="section-title" id="projects-title">Featured <span class="highlight">Projects</span></h2>
+      <p class="section-subtitle" style="margin:0 auto">A showcase of projects that solve real problems with elegant engineering.</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- Project 1: Nalam PHC -->
+      <article class="project-card reveal" style="transition-delay:0.05s">
+        <div class="project-img-wrap">
+          <img src="assets/images/project_nalam.png" alt="Nalam PHC — Healthcare Management System" loading="lazy" />
+          <div class="project-img-overlay"></div>
+          <div class="project-badge" style="background:rgba(0,255,136,0.15);border:1px solid rgba(0,255,136,0.35);color:#00ff88">
+            🏥 Healthcare
+          </div>
+        </div>
+        <div class="project-body">
+          <h3 class="project-name">Nalam PHC</h3>
+          <p class="project-desc">
+            A comprehensive <strong>Healthcare Management System</strong> designed for Primary Health Centers.
+            Streamlines patient registration, appointment scheduling, medical records management, and
+            real-time analytics for healthcare providers.
+          </p>
+          <div class="project-metrics">
+            <div class="project-metric-item">
+              <span class="project-metric-val">99.2%</span>
+              <span class="project-metric-lbl">Uptime</span>
+            </div>
+            <div class="project-metric-item">
+              <span class="project-metric-val">45ms</span>
+              <span class="project-metric-lbl">Latency</span>
+            </div>
+            <div class="project-metric-item">
+              <span class="project-metric-val">500+</span>
+              <span class="project-metric-lbl">Users</span>
+            </div>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Java</span>
+            <span class="project-tag">Spring Boot</span>
+            <span class="project-tag">MySQL</span>
+            <span class="project-tag">HTML/CSS</span>
+            <span class="project-tag">JavaScript</span>
+          </div>
+          <div class="project-actions">
+            <a href="https://github.com/skemparaj" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-github">
+              <i class="fa-brands fa-github"></i> GitHub
+            </a>
+            <a href="#" class="project-btn project-btn-demo">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 2: Marriage Booking -->
+      <article class="project-card reveal" style="transition-delay:0.1s">
+        <div class="project-img-wrap">
+          <img src="assets/project_marraige.jpg" alt="Marriage Booking Event Management System" loading="lazy" />
+          <div class="project-img-overlay"></div>
+          <div class="project-badge" style="background:rgba(123,47,255,0.15);border:1px solid rgba(123,47,255,0.35);color:#a78bfa">
+            💍 Event Tech
+          </div>
+        </div>
+        <div class="project-body">
+          <h3 class="project-name">Marriage Booking Event Management</h3>
+          <p class="project-desc">
+            A full-featured <strong>Event Planning & Booking Platform</strong> for marriage venues.
+            Enables seamless venue browsing, date availability checking, package customization,
+            guest management, and online booking confirmations.
+          </p>
+          <div class="project-metrics">
+            <div class="project-metric-item">
+              <span class="project-metric-val">100%</span>
+              <span class="project-metric-lbl">Digital</span>
+            </div>
+            <div class="project-metric-item">
+              <span class="project-metric-val">150+</span>
+              <span class="project-metric-lbl">Bookings</span>
+            </div>
+            <div class="project-metric-item">
+              <span class="project-metric-val">&lt; 2s</span>
+              <span class="project-metric-lbl">Checkout</span>
+            </div>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Java</span>
+            <span class="project-tag">Spring MVC</span>
+            <span class="project-tag">MySQL</span>
+            <span class="project-tag">Bootstrap</span>
+            <span class="project-tag">Thymeleaf</span>
+          </div>
+          <div class="project-actions">
+            <a href="https://github.com/skemparaj" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-github">
+              <i class="fa-brands fa-github"></i> GitHub
+            </a>
+            <a href="#" class="project-btn project-btn-demo">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 3: Cyber Security Game -->
+      <article class="project-card reveal" style="transition-delay:0.15s">
+        <div class="project-img-wrap">
+          <img src="assets/images/project_cyber.png" alt="Cyber Security Awareness Game" loading="lazy" />
+          <div class="project-img-overlay"></div>
+          <div class="project-badge" style="background:rgba(255,45,120,0.15);border:1px solid rgba(255,45,120,0.35);color:#ff6b9d">
+            🛡️ Cybersecurity
+          </div>
+        </div>
+        <div class="project-body">
+          <h3 class="project-name">Cyber Security Awareness Game</h3>
+          <p class="project-desc">
+            An <strong>interactive educational game</strong> that teaches cybersecurity concepts through
+            engaging challenges. Players learn to identify phishing attacks, secure passwords, detect
+            social engineering, and navigate network security scenarios gamefully.
+          </p>
+          <div class="project-metrics">
+            <div class="project-metric-item">
+              <span class="project-metric-val">5</span>
+              <span class="project-metric-lbl">Levels</span>
+            </div>
+            <div class="project-metric-item">
+              <span class="project-metric-val">300+</span>
+              <span class="project-metric-lbl">Players</span>
+            </div>
+            <div class="project-metric-item">
+              <span class="project-metric-val">96%</span>
+              <span class="project-metric-lbl">Learn Rate</span>
+            </div>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">HTML5</span>
+            <span class="project-tag">CSS3</span>
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">Game Design</span>
+          </div>
+          <div class="project-actions">
+            <a href="https://github.com/skemparaj" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-github">
+              <i class="fa-brands fa-github"></i> GitHub
+            </a>
+            <a href="#" class="project-btn project-btn-demo">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 4: SafeHire AI -->
+      <article class="project-card reveal" style="transition-delay:0.2s">
+        <div class="project-img-wrap">
+          <img src="assets/images/project_safehire.png" alt="SafeHire AI — Fake Job Detection System" loading="lazy" />
+          <div class="project-img-overlay"></div>
+          <div class="project-badge" style="background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.35);color:#ffd700">
+            🤖 AI / ML
+          </div>
+        </div>
+        <div class="project-body">
+          <h3 class="project-name">SafeHire AI</h3>
+          <p class="project-desc">
+            An <strong>AI-powered Fake Job & Internship Detection System</strong> that protects job seekers
+            from fraudulent postings. Uses NLP and machine learning to analyze job listings, compute
+            authenticity scores, and flag suspicious opportunities in real-time.
+          </p>
+          <div class="project-metrics">
+            <div class="project-metric-item">
+              <span class="project-metric-val">95.4%</span>
+              <span class="project-metric-lbl">Accuracy</span>
+            </div>
+            <div class="project-metric-item">
+              <span class="project-metric-val">NLP</span>
+              <span class="project-metric-lbl">Engine</span>
+            </div>
+            <div class="project-metric-item">
+              <span class="project-metric-val">Real-time</span>
+              <span class="project-metric-lbl">Analysis</span>
+            </div>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">Machine Learning</span>
+            <span class="project-tag">NLP</span>
+            <span class="project-tag">scikit-learn</span>
+            <span class="project-tag">Flask</span>
+          </div>
+          <div class="project-actions">
+            <a href="https://github.com/skemparaj" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-github">
+              <i class="fa-brands fa-github"></i> GitHub
+            </a>
+            <a href="#" class="project-btn project-btn-demo">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     STATS
+════════════════════════════════════════════ -->
+<section id="stats" aria-label="Statistics">
+  <div class="section-container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-number"><span class="counter" data-target="4">0</span><span class="stat-suffix">+</span></div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div class="stat-item reveal" style="transition-delay:0.1s">
+        <div class="stat-number"><span class="counter" data-target="15">0</span><span class="stat-suffix">+</span></div>
+        <div class="stat-label">Certificates Earned</div>
+      </div>
+      <div class="stat-item reveal" style="transition-delay:0.2s">
+        <div class="stat-number"><span class="counter" data-target="8">0</span><span class="stat-suffix">+</span></div>
+        <div class="stat-label">Technologies Learned</div>
+      </div>
+      <div class="stat-item reveal" style="transition-delay:0.3s">
+        <div class="stat-number"><span class="counter" data-target="10">0</span><span class="stat-suffix">+</span></div>
+        <div class="stat-label">Events Participated</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     EXPERIENCE
+════════════════════════════════════════════ -->
+<section id="experience" aria-labelledby="experience-title">
+  <div class="section-container">
+    <div class="section-header reveal">
+      <span class="section-label">// 04 — Experience</span>
+      <h2 class="section-title" id="experience-title">Work <span class="highlight">Experience</span></h2>
+      <p class="section-subtitle">Hands-on exposure that complements my academic journey.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-dot">🔧</div>
+        <div class="glass-card timeline-content">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-title">Technical Intern</div>
+              <div class="timeline-company">Senthil Car Care</div>
+            </div>
+            <span class="timeline-date">2024</span>
+          </div>
+          <p class="timeline-desc">
+            Gained practical exposure to automobile maintenance and service operations in a professional
+            environment. Developed a strong understanding of technical workflows, customer service, and
+            operational management systems.
+          </p>
+          <ul class="timeline-list">
+            <li>Hands-on experience with automobile diagnostics and maintenance workflows</li>
+            <li>Understood service management processes and customer relationship systems</li>
+            <li>Identified opportunities for digitizing service records using technology</li>
+            <li>Developed communication and teamwork skills in a professional setting</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal" style="transition-delay:0.1s">
+        <div class="timeline-dot">🎓</div>
+        <div class="glass-card timeline-content">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-title">Academic Projects Lead</div>
+              <div class="timeline-company">Computer Science Department</div>
+            </div>
+            <span class="timeline-date">2023 – Present</span>
+          </div>
+          <p class="timeline-desc">
+            Led development of multiple full-stack projects spanning healthcare, event management, AI, and
+            cybersecurity. Collaborated with peers to deliver complete, functional systems under academic supervision.
+          </p>
+          <ul class="timeline-list">
+            <li>Architected and built 4 full-scale applications end-to-end</li>
+            <li>Applied Agile methodology in team-based project development</li>
+            <li>Presented solutions to faculty panels and industry mentors</li>
+            <li>Mentored juniors on Java, Spring Boot, and database design</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     EDUCATION
+════════════════════════════════════════════ -->
+<section id="education" aria-labelledby="education-title">
+  <div class="section-container">
+    <div class="section-header reveal">
+      <span class="section-label">// 05 — Education</span>
+      <h2 class="section-title" id="education-title">Academic <span class="highlight">Timeline</span></h2>
+      <p class="section-subtitle">My academic history and key milestones in Shree Venkateshwara Hi-Tech Engineering College.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-dot">🎓</div>
+        <div class="glass-card timeline-content">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-title">B.E. Computer Science &amp; Engineering</div>
+              <div class="timeline-company">Shree Venkateshwara Hi-Tech Engineering College</div>
+            </div>
+            <span class="timeline-date">2022 – 2026</span>
+          </div>
+          <p class="timeline-desc">
+            Acquired solid foundation in computer architecture, data structures, algorithms, databases,
+            and software engineering paradigms.
+          </p>
+          <ul class="timeline-list">
+            <li><strong>Key Milestone</strong>: Maintained high academic performance and led student code groups</li>
+            <li><strong>Project Focus</strong>: Architected 4 practical systems spanning Java/Spring and Python AI models</li>
+            <li><strong>Synergy</strong>: Active in technical presentations, symposiums, and engineering contests</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CERTIFICATES
+════════════════════════════════════════════ -->
+<section id="certificates" aria-labelledby="certificates-title">
+  <div class="section-container">
+    <div class="section-header reveal" style="text-align:center">
+      <span class="section-label">// 06 — Certificates</span>
+      <h2 class="section-title" id="certificates-title">Certifications &amp; <span class="highlight">Creeds</span></h2>
+      <p class="section-subtitle" style="margin:0 auto">Professional validations from leading platforms, symposiums, and academies.</p>
+    </div>
+
+    <div class="cert-filters reveal">
+      <button class="cert-filter-btn active" data-filter="all">All</button>
+      <button class="cert-filter-btn" data-filter="hackathon">Hackathons</button>
+      <button class="cert-filter-btn" data-filter="symposium">Symposiums</button>
+      <button class="cert-filter-btn" data-filter="technical">Technical Events</button>
+      <button class="cert-filter-btn" data-filter="nptel">NPTEL &amp; Courses</button>
+    </div>
+
+    <div class="certs-grid">
+      <!-- Certificate 1 -->
+      <div class="glass-card cert-card reveal" data-category="hackathon" style="--ac-color:#00ff88">
+        <div class="cert-icon">🏆</div>
+        <div class="cert-body">
+          <h3 class="cert-title">Hackathon Certificate</h3>
+          <p class="cert-org">Inter-College Hackathon Excellence</p>
+          <span class="cert-tag">Hackathon</span>
+        </div>
+      </div>
+
+      <!-- Certificate 2 -->
+      <div class="glass-card cert-card reveal" data-category="symposium" style="--ac-color:#00f5ff">
+        <div class="cert-icon">🎤</div>
+        <div class="cert-body">
+          <h3 class="cert-title">Symposium Certificate</h3>
+          <p class="cert-org">National Technical Symposium</p>
+          <span class="cert-tag">Symposium</span>
+        </div>
+      </div>
+
+      <!-- Certificate 3 -->
+      <div class="glass-card cert-card reveal" data-category="technical" style="--ac-color:#7b2fff">
+        <div class="cert-icon">🛡️</div>
+        <div class="cert-body">
+          <h3 class="cert-title">Technical Event Certificate</h3>
+          <p class="cert-org">Departmental Coding Challenge</p>
+          <span class="cert-tag">Technical Event</span>
+        </div>
+      </div>
+
+      <!-- Certificate 4 -->
+      <div class="glass-card cert-card reveal" data-category="nptel" style="--ac-color:#ffd700">
+        <div class="cert-icon">📚</div>
+        <div class="cert-body">
+          <h3 class="cert-title">NPTEL Certificate</h3>
+          <p class="cert-org">IIT / NPTEL Certification</p>
+          <span class="cert-tag">NPTEL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     ACHIEVEMENTS
+════════════════════════════════════════════ -->
+<section id="achievements" aria-labelledby="achievements-title">
+  <div class="section-container">
+    <div class="section-header reveal" style="text-align:center">
+      <span class="section-label">// 07 — Achievements</span>
+      <h2 class="section-title" id="achievements-title">Key <span class="highlight">Achievements</span></h2>
+      <p class="section-subtitle" style="margin:0 auto">Key milestones demonstrating dedication, learning, and real-world application.</p>
+    </div>
+
+    <div class="achievements-grid">
+
+      <div class="glass-card achievement-card reveal" style="--ac-color:#00ff88;transition-delay:0.05s">
+        <div class="achievement-icon-ring">🏆</div>
+        <div class="achievement-title">Hackathon Participation</div>
+        <div class="achievement-desc">Active competitor in college hackathons, building prototype solutions and presenting them to evaluation panels.</div>
+      </div>
+
+      <div class="glass-card achievement-card reveal" style="--ac-color:#00f5ff;transition-delay:0.1s">
+        <div class="achievement-icon-ring">🎮</div>
+        <div class="achievement-title">Technical Competitions</div>
+        <div class="achievement-desc">Secured credentials in institutional coding challenges, debugging tournaments, and paper presentations.</div>
+      </div>
+
+      <div class="glass-card achievement-card reveal" style="--ac-color:#7b2fff;transition-delay:0.15s">
+        <div class="achievement-icon-ring">⚡</div>
+        <div class="achievement-title">Symposium Presentations</div>
+        <div class="achievement-desc">Demonstrated full-stack project implementations and presented on advanced technologies at college symposiums.</div>
+      </div>
+
+      <div class="glass-card achievement-card reveal" style="--ac-color:#ffd700;transition-delay:0.2s">
+        <div class="achievement-icon-ring">📚</div>
+        <div class="achievement-title">Continuous Learning</div>
+        <div class="achievement-desc">Actively pursuing certifications and mastering advanced subjects like Spring Boot, database architectures, and AI.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     GITHUB
+════════════════════════════════════════════ -->
+<section id="github" aria-labelledby="github-title">
+  <div class="section-container">
+    <div class="section-header reveal">
+      <span class="section-label">// 06 — GitHub</span>
+      <h2 class="section-title" id="github-title">GitHub <span class="highlight">Activity</span></h2>
+      <p class="section-subtitle">Open source contributions and coding activity at a glance.</p>
+    </div>
+
+    <div class="github-layout">
+      <!-- GitHub Profile Card -->
+      <div class="glass-card github-card reveal-left">
+        <div class="github-profile-top">
+          <div class="github-avatar">
+            <i class="fa-brands fa-github" style="color:#fff;font-size:2rem"></i>
+          </div>
+          <div>
+            <div class="github-username">Kemparaj S</div>
+            <div class="github-handle">@skemparaj</div>
+          </div>
+        </div>
+
+        <div class="github-stats-mini">
+          <div class="gh-stat-mini">
+            <div class="gh-stat-mini-num">4+</div>
+            <div class="gh-stat-mini-label">Repos</div>
+          </div>
+          <div class="gh-stat-mini">
+            <div class="gh-stat-mini-num">200+</div>
+            <div class="gh-stat-mini-label">Commits</div>
+          </div>
+          <div class="gh-stat-mini">
+            <div class="gh-stat-mini-num">10+</div>
+            <div class="gh-stat-mini-label">Stars</div>
+          </div>
+        </div>
+
+        <div class="github-contrib-label">Contribution Activity (Last 6 months)</div>
+        <div class="contrib-grid" id="contrib-grid" aria-label="GitHub contribution graph"></div>
+
+        <a href="https://github.com/skemparaj" target="_blank" rel="noopener noreferrer"
+           class="btn btn-secondary" style="margin-top:1.5rem;width:100%;justify-content:center">
+          <i class="fa-brands fa-github"></i> View GitHub Profile
+        </a>
+      </div>
+
+      <!-- Repos List -->
+      <div class="reveal-right">
+        <div style="margin-bottom:1.5rem">
+          <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:0.5rem">Pinned Repositories</h3>
+          <p style="font-size:0.85rem;color:var(--text-muted)">Key projects hosted on GitHub</p>
+        </div>
+
+        <div class="repos-list">
+          <div class="repo-item">
+            <div>
+              <div class="repo-name">nalam-phc</div>
+              <div class="repo-desc">Healthcare Management System for Primary Health Centers</div>
+            </div>
+            <div class="repo-meta">
+              <span><span class="repo-lang-dot" style="background:#f89820"></span> Java</span>
+              <span>⭐ 4</span>
+            </div>
+          </div>
+
+          <div class="repo-item">
+            <div>
+              <div class="repo-name">marriage-booking-system</div>
+              <div class="repo-desc">Event planning and venue booking platform</div>
+            </div>
+            <div class="repo-meta">
+              <span><span class="repo-lang-dot" style="background:#f89820"></span> Java</span>
+              <span>⭐ 3</span>
+            </div>
+          </div>
+
+          <div class="repo-item">
+            <div>
+              <div class="repo-name">cyber-security-game</div>
+              <div class="repo-desc">Educational cybersecurity awareness game</div>
+            </div>
+            <div class="repo-meta">
+              <span><span class="repo-lang-dot" style="background:#3572A5"></span> Python</span>
+              <span>⭐ 5</span>
+            </div>
+          </div>
+
+          <div class="repo-item">
+            <div>
+              <div class="repo-name">safehire-ai</div>
+              <div class="repo-desc">AI-powered fake job &amp; internship detection</div>
+            </div>
+            <div class="repo-meta">
+              <span><span class="repo-lang-dot" style="background:#3572A5"></span> Python</span>
+              <span>⭐ 6</span>
+            </div>
+          </div>
+
+          <div class="repo-item" style="opacity:0.5">
+            <div>
+              <div class="repo-name">+ more on GitHub →</div>
+              <div class="repo-desc">Explore all repositories</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CONTACT
+════════════════════════════════════════════ -->
+<section id="contact" aria-labelledby="contact-title">
+  <div class="section-container">
+    <div class="section-header reveal" style="text-align:center">
+      <span class="section-label">// 07 — Contact</span>
+      <h2 class="section-title" id="contact-title">Let's <span class="highlight">Connect</span></h2>
+      <p class="section-subtitle" style="margin:0 auto">Have a project in mind or want to collaborate? I'd love to hear from you.</p>
+    </div>
+
+    <div class="contact-grid">
+      <!-- Contact Form -->
+      <div class="glass-card contact-form-card reveal-left">
+        <h3 class="contact-form-title">Send a Message</h3>
+        <p class="contact-form-subtitle">Fill out the form and I'll get back to you within 24 hours.</p>
+
+        <form id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="contact-name">Name</label>
+              <input type="text" id="contact-name" class="form-input" placeholder="Your Name" required autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-email">Email</label>
+              <input type="email" id="contact-email" class="form-input" placeholder="your@email.com" required autocomplete="email" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="contact-subject">Subject</label>
+            <input type="text" id="contact-subject" class="form-input" placeholder="Project Collaboration / Job Opportunity" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="contact-message">Message</label>
+            <textarea id="contact-message" class="form-textarea" placeholder="Tell me about your project or opportunity..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="form-submit-btn">
+            <i class="fa-solid fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="reveal-right">
+        <div style="margin-bottom:2rem">
+          <h3 class="contact-info-title">Get in Touch</h3>
+          <p class="contact-info-subtitle">
+            I'm always open to discussing new projects, creative ideas, or opportunities
+            to be part of something great.
+          </p>
+        </div>
+
+        <div class="contact-info-stack">
+          <a href="mailto:skemparajgms@gmail.com" class="glass-card contact-link-card" style="--cl-color:#00f5ff">
+            <div class="contact-link-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div>
+              <div class="contact-link-label">Email</div>
+              <div class="contact-link-value">skemparajgms@gmail.com</div>
+            </div>
+          </a>
+
+          <a href="tel:+916381218254" class="glass-card contact-link-card" style="--cl-color:#00ff88">
+            <div class="contact-link-icon"><i class="fa-solid fa-phone"></i></div>
+            <div>
+              <div class="contact-link-label">Phone</div>
+              <div class="contact-link-value">+91 63812 18254</div>
+            </div>
+          </a>
+
+          <a href="https://github.com/skemparaj" target="_blank" rel="noopener noreferrer" class="glass-card contact-link-card" style="--cl-color:#ffffff">
+            <div class="contact-link-icon"><i class="fa-brands fa-github"></i></div>
+            <div>
+              <div class="contact-link-label">GitHub</div>
+              <div class="contact-link-value">github.com/skemparaj</div>
+            </div>
+          </a>
+
+          <a href="https://www.linkedin.com/in/kemparaj-s-681812331/" target="_blank" rel="noopener noreferrer" class="glass-card contact-link-card" style="--cl-color:#0077b5">
+            <div class="contact-link-icon"><i class="fa-brands fa-linkedin-in"></i></div>
+            <div>
+              <div class="contact-link-label">LinkedIn</div>
+              <div class="contact-link-value">linkedin.com/in/kemparaj-s-681812331</div>
+            </div>
+          </a>
+
+          <a href="https://wa.me/916381218254" target="_blank" rel="noopener noreferrer" class="glass-card contact-link-card" style="--cl-color:#25d366">
+            <div class="contact-link-icon"><i class="fa-brands fa-whatsapp"></i></div>
+            <div>
+              <div class="contact-link-label">WhatsApp</div>
+              <div class="contact-link-value">+91 63812 18254</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer role="contentinfo">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.6rem;display:inline-block">KS</div>
+        <p>Computer Science Engineering Student passionate about Full Stack Development, AI, and Data Science. Building impactful solutions one line at a time.</p>
+        <div class="footer-socials">
+          <a href="https://github.com/skemparaj" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="GitHub">
+            <i class="fa-brands fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/kemparaj-s-681812331/" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="LinkedIn">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+          <a href="https://wa.me/916381218254" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+          <a href="mailto:skemparajgms@gmail.com" class="footer-social-btn" aria-label="Email">
+            <i class="fa-solid fa-envelope"></i>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Navigation</div>
+        <div class="footer-col-links">
+          <a href="#hero">Home</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#experience">Experience</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">More</div>
+        <div class="footer-col-links">
+          <a href="#achievements">Achievements</a>
+          <a href="#github">GitHub</a>
+          <a href="#contact">Contact</a>
+          <a href="assets/Kemparaj_s_Resume.pdf" download>Resume</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Tech Stack</div>
+        <div class="footer-col-links">
+          <a href="#skills">Python · Java</a>
+          <a href="#skills">HTML · CSS · JS</a>
+          <a href="#skills">Spring Boot</a>
+          <a href="#skills">MySQL</a>
+          <a href="#skills">Git &amp; GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">
+        © 2024 <span>Kemparaj S</span>. Crafted with ❤️ &amp; lots of ☕
+      </div>
+      <div class="footer-badge">
+        <span class="dot"></span>
+        Available for Freelance &amp; Full-time
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scroll to top -->
+<button id="scroll-top" aria-label="Scroll to top" title="Scroll to top">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<!-- GSAP CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="http://localhost:5000/socket.io/socket.io.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
+
+
