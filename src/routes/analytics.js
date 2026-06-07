@@ -8,6 +8,7 @@ router.post('/track-visit', analyticsController.trackVisit);
 router.post('/track-heartbeat', analyticsController.trackHeartbeat);
 router.post('/track-download', analyticsController.trackDownload);
 router.post('/track-heatmap', analyticsController.trackHeatmap);
+router.get('/public-stats', analyticsController.getPublicStats);
 
 // Export visitors/messages data
 router.get('/export/visitors', analyticsController.exportVisitors);

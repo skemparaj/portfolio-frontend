@@ -457,6 +457,21 @@ async function exportMessages(req, res) {
   }
 }
 
+async function getPublicStats(req, res) {
+  try {
+    const [[{ total_visits }]] = await pool.query('SELECT COUNT(*) as total_visits FROM visitors');
+    const [[{ unique_visits }]] = await pool.query('SELECT COUNT(DISTINCT session_id) as unique_visits FROM visitors');
+    const [[{ total_downloads }]] = await pool.query('SELECT COUNT(*) as total_downloads FROM resume_downloads');
+    res.json({
+      total_visits: total_visits || 0,
+      unique_visits: unique_visits || 0,
+      total_downloads: total_downloads || 0
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch public stats.' });
+  }
+}
+
 module.exports = {
   trackVisit,
   trackHeartbeat,
@@ -469,7 +484,8 @@ module.exports = {
   deleteMessage,
   getDownloadsList,
   exportVisitors,
-  exportMessages
+  exportMessages,
+  getPublicStats
 };
 
 

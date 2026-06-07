@@ -42,10 +42,13 @@ async function initAll() {
 
   // Fetch projects from the backend dynamically
   await loadProjects();
+  initProjectTabs();
 
   init3DCards();
   initSectionHighlight();
   initCertFilters();
+  initSkillFilters();
+  initFaqAccordion();
   initMagneticButtons();
   
   // Stagger entry animations
@@ -754,6 +757,33 @@ function initCertFilters() {
   });
 }
 
+/* ── SKILL FILTERING ────────────────────────── */
+function initSkillFilters() {
+  const buttons = document.querySelectorAll('.skill-tab-btn');
+  const cards   = document.querySelectorAll('.skill-card');
+  if (!buttons.length || !cards.length) return;
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        const categories = card.dataset.category ? card.dataset.category.split(' ') : [];
+        if (filter === 'all' || categories.includes(filter)) {
+          card.style.display = 'flex';
+          if (typeof gsap !== 'undefined') {
+            gsap.fromTo(card, { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'power2.out' });
+          }
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+}
+
 /* ── MAGNETIC BUTTONS ──────────────────────── */
 function initMagneticButtons() {
   if (typeof gsap === 'undefined') return;
@@ -828,6 +858,58 @@ function initGsapReveals() {
   });
 }
 
+/* ── PROJECT DETAILS MAP ────────────────────── */
+const PROJECT_DETAILS = {
+  'nalamphc': {
+    badge: '🏥 Healthcare',
+    problem: 'Primary Health Centers face extreme delays and data silos in patient registration, scheduling, and health records, causing critical healthcare bottlenecks.',
+    solution: 'Designed an EHR and scheduling system with Spring Boot and MySQL, centralizing registration and real-time operational stats for doctor decision support.',
+    features: [
+      'Digital Electronic Health Records (EHR) entry',
+      'Real-time automated appointment scheduler',
+      'Clinic occupancy and queue tracking dashboard',
+      'Secure role-based controls for staff & doctors'
+    ],
+    impact: 'Reduced registration intake time by 60% and data retrieval latency to under 50ms.'
+  },
+  'marriagebookingeventmanagement': {
+    badge: '💍 Event Tech',
+    problem: 'Venue bookings are traditionally manual and error-prone, resulting in duplicate slot booking and customer service friction.',
+    solution: 'Built an automated venue booking platform using Spring MVC and transactional constraints to prevent double-booking.',
+    features: [
+      'Transactional date & slot locking',
+      'Dynamic pricing based on customized services',
+      'Interactive availability calendar',
+      'Comprehensive admin portal for slot bookings'
+    ],
+    impact: 'Processed 150+ successful reservations with zero transaction conflicts.'
+  },
+  'cybersecurityawarenessgame': {
+    badge: '🛡️ Cybersecurity',
+    problem: 'Standard cybersecurity training is dry and text-heavy, leading to low retention of critical security principles.',
+    solution: 'Designed a highly engaging puzzle game built using Python, HTML5, and JS to teach risk prevention gamefully.',
+    features: [
+      '5 immersive threat-scenario stages',
+      'Interactive phishing and fraud detection simulations',
+      'Dynamic scoring logic and security badges',
+      'Context-aware hints for continuous education'
+    ],
+    impact: 'Yielded a 96% retention rate of digital security hygiene concepts in tests.'
+  },
+  'safehireai': {
+    badge: '🤖 AI / ML',
+    problem: 'Job portals suffer from fraudulent internship/job postings designed to scrape sensitive applicant credentials.',
+    solution: 'Developed an ML classification pipeline with NLP vectorization using scikit-learn and Flask to flag suspicious posts.',
+    features: [
+      '95.4% accuracy classification ML engine',
+      'TF-IDF text analysis and tokenization pipeline',
+      'Real-time inference API endpoints',
+      'Clean flags for suspicious listing metadata'
+    ],
+    impact: 'Classifies and scores incoming posts in real-time with an average latency of 85ms.'
+  }
+};
+
 /* ── DYNAMIC PROJECT LOADING ────────────────── */
 async function loadProjects() {
   const grid = document.querySelector('.projects-grid');
@@ -839,13 +921,12 @@ async function loadProjects() {
     const projects = await res.json();
     
     if (projects.length > 0) {
-      grid.innerHTML = ''; // Clear hardcoded fallback cards
+      grid.innerHTML = ''; // Clear fallback cards
       projects.forEach((proj, idx) => {
         const card = document.createElement('article');
         card.className = 'project-card reveal';
         card.style.transitionDelay = `${idx * 0.05}s`;
         
-        // Match standard background styling assets
         let imgSrc = 'assets/project_marraige.jpg';
         const normalizedTitle = proj.title.toLowerCase().replace(/[^a-z0-9]/g, '');
         if (normalizedTitle.includes('nalam')) {
@@ -856,6 +937,18 @@ async function loadProjects() {
           imgSrc = 'assets/images/project_safehire.png';
         }
 
+        const detail = PROJECT_DETAILS[normalizedTitle] || {
+          badge: '💻 Tech',
+          problem: 'Needs digital infrastructure automation to eliminate workflows, manual errors, and security issues.',
+          solution: 'Designed and deployed modular API microservices integrating secure backend routers and database pool connections.',
+          features: [
+            'Secure REST API integrations',
+            'Clean structured query statements',
+            'Optimized data schema and query pipelines'
+          ],
+          impact: 'Improved system processing velocity and data durability.'
+        };
+
         const githubBtn = proj.github_link ? `
           <a href="${proj.github_link}" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-github">
             <i class="fa-brands fa-github"></i> GitHub
@@ -863,7 +956,7 @@ async function loadProjects() {
         ` : '';
 
         const demoBtn = proj.live_link ? `
-          <a href="${proj.live_link}" class="project-btn project-btn-demo">
+          <a href="${proj.live_link}" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-demo">
             <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
           </a>
         ` : '';
@@ -872,23 +965,69 @@ async function loadProjects() {
           <div class="project-img-wrap">
             <img src="${imgSrc}" alt="${proj.title}" loading="lazy" />
             <div class="project-img-overlay"></div>
-            <div class="project-badge" style="background:rgba(0,245,255,0.15);border:1px solid rgba(0,245,255,0.35);color:#00f5ff">
-              💻 Tech
+            <div class="project-badge" style="background:rgba(0,245,255,0.12);border:1px solid rgba(0,245,255,0.3);color:#00f5ff">
+              ${detail.badge}
             </div>
           </div>
           <div class="project-body">
             <h3 class="project-name">${proj.title}</h3>
-            <p class="project-desc">${proj.description}</p>
-            <div class="project-tags">
-              ${proj.technologies.split(',').map(tech => `<span class="project-tag">${tech.trim()}</span>`).join('')}
+            
+            <div class="project-card-tabs">
+              <button class="project-tab-link active" data-tab="overview">Overview</button>
+              <button class="project-tab-link" data-tab="problem">Problem &amp; Solution</button>
+              <button class="project-tab-link" data-tab="features">Features &amp; Impact</button>
             </div>
+            
+            <div class="project-tab-content" data-content="overview">
+              <p class="project-desc">${proj.description}</p>
+              <div class="project-tags">
+                ${proj.technologies.split(',').map(tech => `<span class="project-tag">${tech.trim()}</span>`).join('')}
+              </div>
+            </div>
+            
+            <div class="project-tab-content" data-content="problem" style="display:none;">
+              <div class="project-field"><strong class="text-pink">Challenge:</strong> ${detail.problem}</div>
+              <div class="project-field" style="margin-top:8px;"><strong class="text-green">Solution:</strong> ${detail.solution}</div>
+            </div>
+            
+            <div class="project-tab-content" data-content="features" style="display:none;">
+              <ul class="project-features-list">
+                ${detail.features.map(f => `<li>${f}</li>`).join('')}
+              </ul>
+              <div class="project-impact-box" style="margin-top:10px; padding:8px 12px; background:rgba(0,255,136,0.04); border:1px dashed rgba(0,255,136,0.2); border-radius:6px;">
+                <strong class="text-green" style="font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase;">Impact:</strong> 
+                <span style="font-size:0.8rem; color:var(--text-secondary);">${detail.impact}</span>
+              </div>
+            </div>
+            
             <div class="project-actions">
               ${githubBtn}
               ${demoBtn}
             </div>
           </div>
         `;
+
         grid.appendChild(card);
+
+        // Bind interactive tab event listeners
+        const tabBtns = card.querySelectorAll('.project-tab-link');
+        const tabContents = card.querySelectorAll('.project-tab-content');
+        tabBtns.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            tabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const tabName = btn.dataset.tab;
+            tabContents.forEach(content => {
+              if (content.dataset.content === tabName) {
+                content.style.display = 'block';
+              } else {
+                content.style.display = 'none';
+              }
+            });
+          });
+        });
       });
     }
   } catch (err) {
@@ -916,10 +1055,14 @@ function initAnalytics() {
     })
   }).catch(err => console.warn('Analytics system offline:', err));
 
-  // 3. Connect Live Socket
+  // 3. Connect Live Socket and bind live visitor counter
   if (typeof io !== 'undefined') {
     const socket = io(API_BASE);
     socket.emit('register_session', sessionId);
+    socket.on('live_visitors_count', (count) => {
+      const activeUsersEl = document.getElementById('live-active-users');
+      if (activeUsersEl) activeUsersEl.textContent = count;
+    });
   }
 
   // 4. Heartbeat: Record Session Duration (every 15s)
@@ -936,7 +1079,6 @@ function initAnalytics() {
     const clickX = parseFloat((e.clientX / window.innerWidth).toFixed(4));
     const clickY = parseFloat((e.clientY / window.innerHeight).toFixed(4));
     
-    // Attempt to locate clicked container description
     let targetDesc = e.target.id;
     if (!targetDesc && e.target.className) {
       targetDesc = typeof e.target.className === 'string' ? e.target.className.split(' ')[0] : '';
@@ -959,7 +1101,86 @@ function initAnalytics() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sessionId, fileName })
+      }).then(() => {
+        // Refresh public stats after download
+        loadPublicStats();
       }).catch(() => {});
+    });
+  });
+
+  // Load public stats dashboard values on load
+  loadPublicStats();
+}
+
+/* ── PUBLIC ANALYTICS DASHBOARD ──────────────── */
+async function loadPublicStats() {
+  const totalVisitsEl = document.getElementById('live-total-visits');
+  const uniqueVisitorsEl = document.getElementById('live-unique-visitors');
+  const resumeDownloadsEl = document.getElementById('live-resume-downloads');
+  if (!totalVisitsEl || !uniqueVisitorsEl || !resumeDownloadsEl) return;
+
+  try {
+    const res = await apiFetch('/api/analytics/public-stats');
+    if (!res.ok) throw new Error('Failed to fetch public stats');
+    const data = await res.json();
+    totalVisitsEl.textContent = data.total_visits;
+    uniqueVisitorsEl.textContent = data.unique_visits;
+    resumeDownloadsEl.textContent = data.total_downloads;
+  } catch (err) {
+    console.error('Failed to load public stats:', err);
+  }
+}
+
+/* ── INTERACTIVE CARD TABS BINDING ───────────── */
+function initProjectTabs() {
+  document.querySelectorAll('.project-card').forEach(card => {
+    const tabBtns = card.querySelectorAll('.project-tab-link');
+    const tabContents = card.querySelectorAll('.project-tab-content');
+    if (!tabBtns.length) return;
+    
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const tabName = btn.dataset.tab;
+        tabContents.forEach(content => {
+          if (content.dataset.content === tabName) {
+            content.style.display = 'block';
+          } else {
+            content.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+}
+
+/* ── FAQ ACCORDION ──────────────────────────── */
+function initFaqAccordion() {
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+    const icon = item.querySelector('.faq-icon');
+    if (!question || !answer || !icon) return;
+
+    item.addEventListener('click', () => {
+      const isOpen = item.classList.toggle('open');
+      if (isOpen) {
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        icon.style.transform = 'rotate(45deg)';
+        icon.textContent = '×';
+        icon.style.color = 'var(--neon-pink)';
+        item.style.borderColor = 'rgba(255, 45, 120, 0.2)';
+      } else {
+        answer.style.maxHeight = '0';
+        icon.style.transform = 'rotate(0deg)';
+        icon.textContent = '+';
+        icon.style.color = 'var(--neon-cyan)';
+        item.style.borderColor = '';
+      }
     });
   });
 }
