@@ -47,7 +47,8 @@ app.use(helmet({
   "wss:",
   "http://ip-api.com",
   "https://portfolio-frontend-2b17.onrender.com",
-  "https://kemparaj-portfolio.vercel.app"
+  "https://kemparaj-portfolio.vercel.app",
+  "https://api.emailjs.com"
 ]
     }
   }

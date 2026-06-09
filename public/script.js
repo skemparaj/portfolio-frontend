@@ -6,7 +6,7 @@
 
 'use strict';
 
-const API_BASE = 'https://portfolio-frontend-2b17.onrender.com';
+const API_BASE = '';
 function apiFetch(path, options) {
   return fetch(`${API_BASE}${path}`, options);
 }
@@ -430,13 +430,23 @@ function clearInputErrors(form) {
   });
 }
 
+// ── EMAILJS CONFIG ───────────────────────────
+const EMAILJS_SERVICE_ID  = 'service_iw8yfr7';
+const EMAILJS_TEMPLATE_ID = 'template_l3inczg';
+const EMAILJS_PUBLIC_KEY  = 'lz1sHWsAGww0bCRWA';
+
 function initContactForm() {
   const form = document.getElementById('contact-form');
   const btn  = document.getElementById('form-submit-btn');
   if (!form || !btn) return;
 
-  const nameInput = document.getElementById('contact-name');
-  const emailInput = document.getElementById('contact-email');
+  // Initialise EmailJS
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+  }
+
+  const nameInput    = document.getElementById('contact-name');
+  const emailInput   = document.getElementById('contact-email');
   const messageInput = document.getElementById('contact-message');
 
   [nameInput, emailInput, messageInput].forEach(input => {
@@ -455,8 +465,8 @@ function initContactForm() {
     e.preventDefault();
     clearInputErrors(form);
 
-    const name = nameInput?.value.trim();
-    const email = emailInput?.value.trim();
+    const name    = nameInput?.value.trim();
+    const email   = emailInput?.value.trim();
     const subject = document.getElementById('contact-subject')?.value.trim() || 'No Subject';
     const message = messageInput?.value.trim();
 
@@ -486,54 +496,53 @@ function initContactForm() {
       return;
     }
 
-    // Submit via backend API
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
     btn.disabled  = true;
 
-    apiFetch('/api/contact', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-session-id': sessionStorage.getItem('portfolio_session_id') || ''
-      },
-      body: JSON.stringify({ name, email, subject, message })
-    })
-    .then(res => {
-      if (!res.ok) {
-        return res.text().then(text => {
-          try {
-            return JSON.parse(text);
-          } catch {
-            throw new Error(`Server error: ${res.status}`);
-          }
-        });
-      }
-      return res.json();
-    })
-    .then(data => {
-      if (data.error) throw new Error(data.error);
+    // Send via EmailJS (client-side, no backend needed for email)
+    const templateParams = {
+      from_name  : name,
+      from_email : email,
+      subject    : subject,
+      message    : message,
+      reply_to   : email
+    };
 
-      btn.innerHTML = '<i class="fa-solid fa-check"></i> Message Sent!';
-      btn.style.background = 'linear-gradient(135deg, #00ff88, #00b870)';
-      form.reset();
-      setTimeout(() => {
-        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
-        btn.style.background = '';
-        btn.disabled = false;
-      }, 3500);
-    })
-    .catch(err => {
-      console.error('Contact form error:', err);
-      showInputError(emailInput, err.message || 'Failed to send message. Please try again.');
-      btn.innerHTML = '<i class="fa-solid fa-exclamation-triangle"></i> Failed to Send';
-      btn.style.background = 'linear-gradient(135deg, #ff2d78, #b80045)';
-      setTimeout(() => {
-        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
-        btn.style.background = '';
-        btn.disabled = false;
-      }, 3500);
-    });
-  });;
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+      .then(() => {
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Message Sent!';
+        btn.style.background = 'linear-gradient(135deg, #00ff88, #00b870)';
+        form.reset();
+
+        // Also save to backend DB silently (fire-and-forget)
+        apiFetch('/api/contact', {
+          method : 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-session-id': sessionStorage.getItem('portfolio_session_id') || ''
+          },
+          body: JSON.stringify({ name, email, subject, message })
+        }).catch(() => {});
+
+        setTimeout(() => {
+          btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 3500);
+      })
+      .catch(err => {
+        console.error('EmailJS error:', err);
+        const errMsg = (err && err.text) ? err.text : 'Failed to send message. Please try again.';
+        showInputError(emailInput, errMsg);
+        btn.innerHTML = '<i class="fa-solid fa-exclamation-triangle"></i> Failed to Send';
+        btn.style.background = 'linear-gradient(135deg, #ff2d78, #b80045)';
+        setTimeout(() => {
+          btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 3500);
+      });
+  });
 }
 
 function shakeForm(form) {
