@@ -41,7 +41,14 @@ app.use(helmet({
       "style-src": ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com", "https://fonts.googleapis.com"],
       "font-src": ["'self'", "https://cdnjs.cloudflare.com", "https://fonts.gstatic.com"],
       "img-src": ["'self'", "data:", "https://*"],
-      "connect-src": ["'self'", "ws:", "wss:", "http://ip-api.com"]
+      "connect-src": [
+  "'self'",
+  "ws:",
+  "wss:",
+  "http://ip-api.com",
+  "https://portfolio-frontend-2b17.onrender.com",
+  "https://kemparaj-portfolio.vercel.app"
+]
     }
   }
 }));
