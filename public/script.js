@@ -430,10 +430,19 @@ function clearInputErrors(form) {
   });
 }
 
+// ── EMAILJS CONFIG ───────────────────────────
+const EMAILJS_SERVICE_ID  = 'service_iw8yfr7';
+const EMAILJS_TEMPLATE_ID = 'template_l3inczg';
+const EMAILJS_PUBLIC_KEY  = 'lz1sHWsAGww0bCRWA';
+
 function initContactForm() {
   const form = document.getElementById('contact-form');
   const btn  = document.getElementById('form-submit-btn');
   if (!form || !btn) return;
+
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+  }
 
   const nameInput    = document.getElementById('contact-name');
   const emailInput   = document.getElementById('contact-email');
@@ -462,53 +471,38 @@ function initContactForm() {
 
     let hasError = false;
 
-    if (!name) {
-      showInputError(nameInput, 'Name is required');
-      hasError = true;
-    }
+    if (!name) { showInputError(nameInput, 'Name is required'); hasError = true; }
     if (!email) {
-      showInputError(emailInput, 'Email is required');
-      hasError = true;
+      showInputError(emailInput, 'Email is required'); hasError = true;
     } else {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        showInputError(emailInput, 'Please enter a valid email address');
-        hasError = true;
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showInputError(emailInput, 'Please enter a valid email address'); hasError = true;
       }
     }
-    if (!message) {
-      showInputError(messageInput, 'Message is required');
-      hasError = true;
-    }
+    if (!message) { showInputError(messageInput, 'Message is required'); hasError = true; }
 
-    if (hasError) {
-      shakeForm(form);
-      return;
-    }
+    if (hasError) { shakeForm(form); return; }
 
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
     btn.disabled  = true;
 
-    // Send via backend API (nodemailer + Gmail SMTP on Render)
-    apiFetch('/api/contact', {
-      method : 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-session-id': sessionStorage.getItem('portfolio_session_id') || ''
-      },
-      body: JSON.stringify({ name, email, subject, message })
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      from_name  : name,
+      from_email : email,
+      subject    : subject,
+      message    : message,
+      reply_to   : email
     })
-    .then(res => {
-      if (!res.ok) {
-        return res.json().then(d => { throw new Error(d.error || 'Server error'); });
-      }
-      return res.json();
-    })
-    .then(data => {
-      if (data.error) throw new Error(data.error);
+    .then(() => {
       btn.innerHTML = '<i class="fa-solid fa-check"></i> Message Sent!';
       btn.style.background = 'linear-gradient(135deg, #00ff88, #00b870)';
       form.reset();
+      // Silently save to DB
+      apiFetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-session-id': sessionStorage.getItem('portfolio_session_id') || '' },
+        body: JSON.stringify({ name, email, subject, message })
+      }).catch(() => {});
       setTimeout(() => {
         btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
         btn.style.background = '';
@@ -516,8 +510,8 @@ function initContactForm() {
       }, 3500);
     })
     .catch(err => {
-      console.error('Contact form error:', err);
-      showInputError(emailInput, err.message || 'Failed to send message. Please try again.');
+      console.error('EmailJS error:', err);
+      showInputError(emailInput, (err && err.text) || 'Failed to send. Please try again.');
       btn.innerHTML = '<i class="fa-solid fa-exclamation-triangle"></i> Failed to Send';
       btn.style.background = 'linear-gradient(135deg, #ff2d78, #b80045)';
       setTimeout(() => {
