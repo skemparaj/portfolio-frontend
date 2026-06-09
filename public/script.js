@@ -6,7 +6,7 @@
 
 'use strict';
 
-const API_BASE = 'https://portfolio-frontend-2b17.onrender.com';
+const API_BASE = 'http://localhost:5000';
 function apiFetch(path, options) {
   return fetch(`${API_BASE}${path}`, options);
 }
